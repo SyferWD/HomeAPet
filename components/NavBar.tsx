@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link'
 import {useState} from 'react';
-import { HiMenu } from 'react-icons/Hi';
+import { HiMenu } from 'react-icons/hi';
 import { RxCross2 } from 'react-icons/rx';
 import { CustomButton } from '.';
 import { navbar_links } from '@/link_webContent';
