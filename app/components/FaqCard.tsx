@@ -24,8 +24,8 @@ const FaqCard = ({content, index, cardStyle} : FaqProps) => {
 
     return (
         <>
-            <div className='flex justify-between items-center font-bold text-xl p-10'> 
-                <p>
+            <div className='flex justify-between items-center font-bold p-4 md:p-8 lg:p-10'> 
+                <p className='text-sm md:text-base lg:text-xl'>
                     {content.question}
                 </p>
                 < IoIosArrowDown 
@@ -44,7 +44,7 @@ const FaqCard = ({content, index, cardStyle} : FaqProps) => {
                                 :  "border-slate-200"}`}
             />
             <p className={questionToggle === index 
-                            ? "bg-white p-10 rounded-xl" 
+                            ? "bg-slate-200 p-4 md:p-8 lg:p-10  last:rounded-b-lg text-sm md:text-base" 
                             : "invisible max-h-0"}>
                 {content.answer}
             </p>

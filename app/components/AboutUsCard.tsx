@@ -11,15 +11,15 @@ interface AboutUsProps {
 
 const AboutUsCard = ({title, subtitle, extra_subtitle, img_src, img_alt, flip}: AboutUsProps) => {
   return (
-    <div className='flex flex-col lg:flex-row justify-center h-[720px] lg:h-[640px] '>
-        <div className= {`flex-1 flex flex-col justify-start p-24 gap-10 lg:gap-20 text-white ${flip ? "lg:order-1" : "lg:order-2"}`}>
-            <h4 className='font-extrabold text-4xl font-poppins'>
+    <div className='flex flex-col lg:flex-row justify-center h-[480px] md:h-[720px] lg:h-[640px] '>
+        <div className= {`flex-1 flex flex-col justify-start p-4 lg:p-24 gap-10 lg:gap-20 text-white ${flip ? "lg:order-1" : "lg:order-2"}`}>
+            <h4 className='font-extrabold text-xl lg:text-4xl font-poppins'>
                 {title}
             </h4>
-            <p className='font-medium text-lg'>
+            <p className='font-medium text-sm md:text-base lg:text-lg'>
                 {subtitle}
             </p>
-            <p className='font-medium text-lg'>
+            <p className='font-medium text-sm md:text-base lg:text-lg'>
                 {extra_subtitle}
             </p>
         </div>
