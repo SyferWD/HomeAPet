@@ -71,7 +71,7 @@ const AdoptionForm = ( {pet_id} : AdoptionFormProps) => {
             </div>
             <div className="my-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                    Email <p className="text-red-400">( Please use the same email as you have used for this account. )</p>
+                    Email <p className="text-red-400 text-xs md:text-base">( Please use the same email as you have used for this account. )</p>
                 </label>
                 <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -99,13 +99,15 @@ const AdoptionForm = ( {pet_id} : AdoptionFormProps) => {
                     required
                 />
             </div>
-            <div className="flex justify-center flex-col items-center mb-4">
+            <div className="flex justify-center flex-col items-center mb-4 scale-75 md:scale-100">
                 <StripeBuyButton />
-                <p className="text-red-400">( Payment can be made now or after viewing the pet with an admin via zoom call. )</p>
+                <p className="text-red-400 ">( Payment can be made now or after viewing the pet with an admin via zoom call. )</p>
             </div>
             {isLoggedIn ? (
-                <button type="submit" 
-                    className="bg-green-400 h-20 w-full rounded-2xl text-white hover:bg-green-600 shadow-md flex justify-center items-center text-4xl">
+                <button 
+                    type="submit" 
+                    className="bg-green-400 h-20 w-full rounded-2xl text-white hover:bg-green-600 shadow-md flex justify-center items-center text-lg md:text-4xl"
+                >
                     Adopt me!
                 </button>
             ): <LoginRedirect /> }

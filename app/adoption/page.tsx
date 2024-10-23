@@ -3,7 +3,6 @@ import { SearchCard } from '@/components';
 import Link from 'next/link';
 import SearchBar from './components/SearchBar';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { petDataProps } from './constants';
 
 const AdoptionPage = () => {
@@ -15,9 +14,14 @@ const AdoptionPage = () => {
     const getGalleryCards = async(pageNumber : number) => {
 
         try {
-            const fetchedData = await axios.get(`api/pets?page=${pageNumber}`);
+            const fetchedData = await fetch(`api/pets?page=${pageNumber}`,{
+                headers : {
+                    "Content-Type" : "application/json",
+                },
+                method: 'GET',
+            })
 
-            const petsData = fetchedData.data;
+            const petsData = await fetchedData.json();
 
             setGalleryCards(petsData.requestedPets);
             setTotalPages(Math.ceil(petsData.totalNumOfPets / 5));
@@ -40,9 +44,14 @@ const AdoptionPage = () => {
         }
         
         try {
-            const searchResults = await axios.get(`api/searchPets?type=${searchTerm}&page=${currentPage}`)
+            const searchResults = await fetch(`api/searchPets?type=${searchTerm}&page=${currentPage}`, {
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                method : "GET"
+            })
             
-            const petsData = searchResults.data;
+            const petsData = await searchResults.json();
 
             setGalleryCards(petsData.requestedFilteredPets);
             setTotalPages(Math.ceil(petsData.totalNumOfFilteredPets / 5));
@@ -57,7 +66,7 @@ const AdoptionPage = () => {
     }, [currentPage]);
 
     return (
-        <div className='relative max-w-screen-2xl min-h-screen flex justify-center items-center mx-auto h-auto pb-12'>
+        <div className='relative max-w-screen-md md:max-w-screen-2xl min-h-screen flex justify-center items-center mx-auto h-auto pb-12'>
             <div className='flex flex-col mt-10 gap-12 w-full '>
                 {/* Page title */}
                 <div className='flex justify-center'>
@@ -71,24 +80,30 @@ const AdoptionPage = () => {
                     <SearchBar onSearch={handleSearch}/>
                 </div>
                 {/* Search Result Cards */}
-                <div className='relative flex flex-wrap z-10 justify-center items-center gap-10 lg:gap-20 h-fit'>
-                    {galleryCards && galleryCards.map((pet) => (
-                        <Link key={pet.pet_id}
-                        href={{
-                            pathname: `/adoption/${pet.pet_id}`,
-                            query: { pet_id: pet.pet_id },
-                        }}
+                <div className='relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 z-10 justify-items-center content-center w-full'>
+                    {galleryCards.length > 0 ? galleryCards.map((pet) => (
+                        <Link 
+                            key={pet.pet_id}
+                            href={{
+                                pathname: `/adoption/${pet.pet_id}`,
+                                query: { pet_id: pet.pet_id },
+                            }}
+                            className='w-full flex justify-center'
                         >
-                        <SearchCard
-                            img_src={pet.petURL}
-                            name={pet.name}
-                            breed={pet.breed}
-                            age={pet.age}
-                            gender={pet.gender}
-                            fee={50}
-                        />
+                            <SearchCard
+                                img_src={pet.petURL}
+                                name={pet.name}
+                                breed={pet.breed}
+                                age={pet.age}
+                                gender={pet.gender}
+                                fee={50}
+                            />
                         </Link>
-                    ))}
+                    )) : (
+                        <p className='col-span-full'>
+                            {totalPages > 0 ? "Loading..." : "None Found"}
+                        </p>
+                    )}
                 </div>
 
                 {/* Pagination Buttons */}
@@ -103,12 +118,12 @@ const AdoptionPage = () => {
                     </button>
 
                     <div className='flex justify-center items-center'>
-                        {currentPage} / {totalPages} Pages
+                        {totalPages > 0 ? `${currentPage} / ${totalPages} pages ` : "0 record"}
                     </div>
 
                     <button
                         disabled={currentPage === totalPages}
-                        hidden = {currentPage === totalPages}
+                        hidden = {currentPage === totalPages || totalPages === 0}
                         onClick={() => handlePageChange(currentPage+1)}
                         className='p-3 bg-blue-400 rounded-lg w-32 hover:translate-y-[-5px] hover:bg-blue-500 shadow-md'
                     >
