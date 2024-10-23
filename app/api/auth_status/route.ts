@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 
 export const GET = async() => {
 
-    const userCookies = cookies();
+    const userCookies = await cookies();
 
     const token = userCookies.get(jwt_token_name);
 

@@ -17,7 +17,7 @@ export const POST = async(req : NextRequest) => {
         // if userData / userEmail is missing, acquire the email again through the JWT
         if (userData == null) {
             
-            const userCookies = cookies();
+            const userCookies = await cookies();
 
             const token = userCookies.get(jwt_token_name);
 

@@ -24,7 +24,7 @@ export const POST = async (req : NextRequest) => {
 
         // Check Password
         const password = String(loginData.password);
-        const passwordResults = await bcrypt.compareSync(password, user.password);
+        const passwordResults = bcrypt.compareSync(password, user.password);
         
         if (!passwordResults) {
             return NextResponse.json(

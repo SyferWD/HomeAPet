@@ -88,7 +88,7 @@ const AdoptionPage = () => {
                                 pathname: `/adoption/${pet.pet_id}`,
                                 query: { pet_id: pet.pet_id },
                             }}
-                            className='w-full flex justify-center'
+                            className='w-full flex justify-center h-[360px] sm:h-[480px]'
                         >
                             <SearchCard
                                 img_src={pet.petURL}

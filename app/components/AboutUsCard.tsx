@@ -28,6 +28,7 @@ const AboutUsCard = ({title, subtitle, extra_subtitle, img_src, img_alt, flip}: 
                 src={img_src}
                 alt={img_alt}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className='object-cover overflow-hidden '
             />
         </div>

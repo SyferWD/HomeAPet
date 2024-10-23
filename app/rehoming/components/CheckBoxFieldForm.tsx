@@ -1,6 +1,5 @@
 import React from 'react'
 import { pet_traits } from '../constants/formQuestions'
-import { form_data } from '@/app/interfaces';
 
 type CheckBoxProps = {
     formData : string[];
@@ -11,7 +10,7 @@ const CheckBoxFieldForm = ({formData, onChange}: CheckBoxProps) => {
   return (
     <div className="px-10 py-4 flex flex-col gap-2 w-3/5 justify-start mb-4">
         {pet_traits.map((trait) => (
-            <div className='flex gap-2 ml-8'>
+            <div className='flex gap-2 ml-8' key={trait}>
                 <input
                     type="checkbox"
                     name="characteristics"

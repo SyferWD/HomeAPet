@@ -57,26 +57,69 @@ const AdoptionPetInfoPage = () => {
         });
       };
 
-    useEffect(() => {
-        if(petData){
-            setFilteredPetChar(
-                filterCharacteristics(petData?.characteristics)
-            )
-        }
-        const getPetData = async () => {
-          try {
-            const petDataResults = await axios.get(`/api/petByID?pet_id=${petID}`);
-            setPetData(petDataResults.data.requestedPet);
-          } catch (error) {
-            return
-          }
-        };
-    
-        if (petID) {
-          getPetData();
-        }
+    // useEffect(() => {
+    //     if(petData){
+    //         setFilteredPetChar(
+    //             filterCharacteristics(petData?.characteristics)
+    //         )
+    //     }
+    //     const getPetData = async () => {
+    //       try {
+    //         const petDataResults = await fetch(`/api/petByID?pet_id=${petID}`, {
+    //             headers : {
+    //                 "Content-Type" : "application/json"
+    //             },
+    //             method: "GET"
+    //         })
 
-      }, [petID, petData]);
+    //         const petDataRes = await petDataResults.json()
+
+    //         setPetData(petDataRes.data.requestedPet);
+    //       } catch (error) {
+    //         return
+    //       }
+    //     };
+    
+    //     if (petID) {
+    //       getPetData();
+    //     }
+
+    //   }, [petID, petData]);
+
+    useEffect(() => {
+        let isMounted = true;
+        const getPetData = async () => {
+            if(petID) {
+                try {
+                    const petDataResults = await fetch(`/api/petByID?pet_id=${petID}`, {
+                        headers : {
+                            "Content-Type" : "application/json"
+                        },
+                        method: "GET"
+                    })
+                    
+                    const petDataRes = await petDataResults.json()
+                    if(isMounted) {
+                        setPetData(petDataRes.requestedPet);
+                    }
+                } catch (error) {
+                    console.error("Error fetching pet data:", error);
+                }
+            }
+        };
+
+        getPetData();
+
+        return () => {
+            isMounted = false;
+        }
+    }, [petID]);
+
+    useEffect(()=> {
+        if(petData) {
+            setFilteredPetChar(filterCharacteristics(petData.characteristics));
+        }
+    }, [petData]);
 
   return (
     <>
@@ -91,41 +134,45 @@ const AdoptionPetInfoPage = () => {
                         height={300}
                         className='object-contain overflow-hidden'
                     />
-                ) : null}
+                ) : (
+                    <p className="text-white text-lg">
+                        Loading...
+                    </p>
+                )}
             </div>
             <div className='basis-1/2 h-auto w-auto flex flex-col gap-6 justify-center items-center bg-green-50 rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none p-10 shadow-lg'>
                 <Adoption_PetInfo_Cell 
                     header='Name | (Type of Pet):'
-                    content={`${petData?.name} ( ${petData?.species} )`}
+                    content={petData ? `${petData?.name} ( ${petData?.species} )`: "Loading..."}
                     size='w-4/5 text-2xl'
                 />
                 <div className='flex-1 flex gap-6 justify-center items-stretch w-4/5 h-auto'>
                     <Adoption_PetInfo_Cell 
                         header='Breed'
-                        content={`${petData?.breed}`}
+                        content={petData ? petData.breed : "Loading.."}
                         size='w-full'
                     />
                     <Adoption_PetInfo_Cell 
                         header='Color'
-                        content={`${petData?.color}`}
+                        content={petData ? petData.color : "Loading..."}
                         size='w-full'
                     />
                 </div>
                 <div className='flex-1 flex gap-6 justify-center items-stretch w-4/5 h-auto'>
                     <Adoption_PetInfo_Cell 
                         header='Gender'
-                        content={`${petData?.gender}`}
+                        content={petData ? petData.gender : "Loading..."}
                         size='w-full'
                     />
                     <Adoption_PetInfo_Cell 
                         header='Age'
-                        content={`${petData?.age}`}
+                        content={petData ? petData.age : "Loading..."}
                         size='w-full'
                     />
                 </div>
                 <Adoption_PetInfo_Cell 
                     header='Medical Condition (If Any)'
-                    content={`${petData?.medical_condition}`}
+                    content={petData ? petData.medical_condition : "Loading..."}
                     size='w-4/5'
                 />
             </div>
@@ -143,7 +190,7 @@ const AdoptionPetInfoPage = () => {
                         </div>
                         <div className='px-6'>
                             <p>
-                            {`${petData?.description}`}
+                                {petData ? petData.description : "Loading..."}
                             </p>
                         </div>
                     </div>
@@ -170,7 +217,7 @@ const AdoptionPetInfoPage = () => {
             </div>
         </div>
         {petData && (
-            <PetCarousel species={petData.species} />
+            <PetCarousel species={petData.species} pet_ID = {petData.pet_id}/>
         )}
     </>
   )

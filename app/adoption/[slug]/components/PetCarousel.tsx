@@ -6,9 +6,10 @@ import { useEffect, useState } from 'react';
 // Define the prop type for PetCarousel
 interface PetCarouselProps {
     species : string;
+    pet_ID : number;
 }
 
-const PetCarousel = ( petSpecies : PetCarouselProps) => {
+const PetCarousel = ( { species, pet_ID }: PetCarouselProps) => {
 
     const [petCarousel, setPetCarousel] = useState<petDataProps[]>([])
 
@@ -31,7 +32,7 @@ const PetCarousel = ( petSpecies : PetCarouselProps) => {
     }
 
     useEffect(() => {
-        fetchCarouselData(petSpecies.species);
+        fetchCarouselData(species);
     } , [])
 
     return (
@@ -40,10 +41,12 @@ const PetCarousel = ( petSpecies : PetCarouselProps) => {
                 content='Similar Pets'
             />
             <div className='flex overflow-auto w-4/5 lg:w-full bg-black/75 shadow-md rounded-md py-4'>
-                {petCarousel.map((pet: petDataProps) => (
+                {petCarousel
+                    .filter((pet: petDataProps) => pet.pet_id !== pet_ID)
+                    .map((pet: petDataProps) => (
                     <Link 
                         key={pet.pet_id} 
-                        className= "flex justify-center items-center flex-shrink-0 w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[400px] mx-2 max-h-96"
+                        className= "flex justify-center items-center flex-shrink-0 w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[400px] mx-2 h-[360px] sm:h-[480px]"
                         href={`/adoption/${pet.pet_id}`}
                     >
                         <SearchCard 

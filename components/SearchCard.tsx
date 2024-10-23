@@ -15,9 +15,10 @@ interface SearchBarProps {
 
 const SearchCard = ({img_src, name, breed, age, gender, fee} : SearchBarProps) => {
   return (
-    <div className='relative flex flex-col bg-gray-100 rounded-md w-full max-w-[75%] sm:max-w-[280px] lg:max-w-[320px] shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300'>
+    <div className='relative flex flex-col bg-gray-100 h-full rounded-md w-full max-w-[75%] sm:max-w-[280px] lg:max-w-[320px] shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300'>
         {/* Pet Image */}
-        <div className='relative h-[250px] sm:h-[300px] justify-center'>
+        {/* <div className='relative h-[250px] sm:h-[300px] justify-center'> */}
+        <div className='basis-3/5 relative justify-center'>
             <Image 
                 src= {img_src || ''}
                 alt={breed}
@@ -28,7 +29,7 @@ const SearchCard = ({img_src, name, breed, age, gender, fee} : SearchBarProps) =
             />
         </div>
         {/* Pet Details */}
-        <div className='flex flex-1 flex-col justify-center p-4 '>
+        <div className='basis-2/5 flex flex-1 flex-col justify-center p-4 '>
             {/* Pet Name and Breed */}
             <div className='flex justify-center items-center py-4 gap-4'>
                 <h3 className='font-semibold text-xl font-poppins capitalize '>
