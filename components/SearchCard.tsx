@@ -41,7 +41,7 @@ const SearchCard = ({img_src, name, breed, age, gender, fee} : SearchBarProps) =
             </div>
             
             {/* Minor details with icons */}
-            <div className='flex justify-between px-4'>
+            {/* <div className='flex justify-between px-4'>
                 <div className='basis-1/3 flex-col flex gap-2 capitalize'>
                     <LuCalendarClock 
                         className="w-6 h-6 md:w-7 md:h-7 text-green-500 mx-auto"
@@ -57,6 +57,26 @@ const SearchCard = ({img_src, name, breed, age, gender, fee} : SearchBarProps) =
                 <div className='basis-1/3 flex-col flex gap-2'>
                     <AiOutlineDollarCircle
                         className="w-6 h-6 md:w-8 md:h-8 text-green-500 mx-auto"
+                    />
+                    <p className='flex justify-center text-sm md:text-base'>$ {fee}</p>
+                </div>
+            </div> */}
+            <div className='grid grid-cols-2 grid-rows-2 gap-4'>
+                <div className='col-span-2 flex items-center gap-2 capitalize justify-center'>
+                    <LuCalendarClock 
+                        className="w-6 h-6 md:w-7 md:h-7 text-green-500"
+                    />
+                    <p className='flex justify-center text-wrap text-center text-sm md:text-base'>{age}</p>
+                </div >
+                <div className='flex gap-2 items-end justify-end'>
+                    <PiGenderIntersexBold 
+                        className="w-6 h-6 md:w-7 md:h-7 text-green-500"
+                    />
+                    <p className='flex justify-center capitalize text-sm md:text-base'>{gender}</p>
+                </div>
+                <div className='flex gap-2 items-end'>
+                    <AiOutlineDollarCircle
+                        className="w-6 h-6 md:w-8 md:h-8 text-green-500"
                     />
                     <p className='flex justify-center text-sm md:text-base'>$ {fee}</p>
                 </div>

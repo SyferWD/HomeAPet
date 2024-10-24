@@ -69,7 +69,7 @@ const DashBoardPage = () => {
                     header_title="Adoption Application Status"
                 >   
                     {adoptionApplications.length > 0 ? (
-                        <div className="py-12 flex flex-wrap gap-10">
+                        <div className="py-12 flex flex-wrap gap-10 justify-center">
                             {adoptionApplications.map((application, index) => (
                                 <AdoptionDashBoardCard key={index} 
                                     petURL={application.petURL} 

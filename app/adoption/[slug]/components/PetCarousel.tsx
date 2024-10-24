@@ -40,14 +40,17 @@ const PetCarousel = ( { species, pet_ID }: PetCarouselProps) => {
             <Header 
                 content='Similar Pets'
             />
-            <div className='flex overflow-auto w-4/5 lg:w-full bg-black/75 shadow-md rounded-md py-4'>
-                {petCarousel
+            <div className='flex overflow-auto w-4/5 bg-black/75 shadow-md rounded-md py-4'>
+                {petCarousel.length > 1 ? petCarousel
                     .filter((pet: petDataProps) => pet.pet_id !== pet_ID)
                     .map((pet: petDataProps) => (
                     <Link 
                         key={pet.pet_id} 
                         className= "flex justify-center items-center flex-shrink-0 w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[400px] mx-2 h-[360px] sm:h-[480px]"
-                        href={`/adoption/${pet.pet_id}`}
+                        href={{
+                            pathname: `/adoption/${pet.pet_id}`,
+                            query: { pet_id: pet.pet_id },
+                        }}
                     >
                         <SearchCard 
                             img_src={pet.petURL}
@@ -58,7 +61,11 @@ const PetCarousel = ( { species, pet_ID }: PetCarouselProps) => {
                             fee={50}
                         />
                 </Link>
-                ))}
+                )) : (
+                    <p className='text-white text-lg w-full text-center'>
+                        No similar pets found.
+                    </p>
+                )}
             </div>
         </div>
     )

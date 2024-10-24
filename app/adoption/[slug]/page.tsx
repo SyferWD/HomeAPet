@@ -130,9 +130,10 @@ const AdoptionPetInfoPage = () => {
                     <Image 
                         src={petData.petURL}
                         alt="Image of Pet"
-                        width={400}
-                        height={300}
-                        className='object-contain overflow-hidden'
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        className='object-contain overflow-hidden w-full h-auto max-h-[50vh]'
                     />
                 ) : (
                     <p className="text-white text-lg">
@@ -167,7 +168,7 @@ const AdoptionPetInfoPage = () => {
                     <Adoption_PetInfo_Cell 
                         header='Age'
                         content={petData ? petData.age : "Loading..."}
-                        size='w-full'
+                        size='w-full text-sm md:text-base'
                     />
                 </div>
                 <Adoption_PetInfo_Cell 
