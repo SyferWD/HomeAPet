@@ -8,9 +8,9 @@ type CheckBoxProps = {
 
 const CheckBoxFieldForm = ({formData, onChange}: CheckBoxProps) => {
   return (
-    <div className="px-10 py-4 flex flex-col gap-2 w-3/5 justify-start mb-4">
+    <div className="flex flex-col gap-2 justify-start">
         {pet_traits.map((trait) => (
-            <div className='flex gap-2 ml-8' key={trait}>
+            <div className='flex gap-2' key={trait}>
                 <input
                     type="checkbox"
                     name="characteristics"
@@ -20,7 +20,7 @@ const CheckBoxFieldForm = ({formData, onChange}: CheckBoxProps) => {
                     onChange={onChange}
                     className=''
                 />
-                <label htmlFor={trait} className="text-2xl text-center">
+                <label htmlFor={trait} className="text-xs md:text-base xl:text-lg text-center">
                     {trait}
                 </label>
             </div>

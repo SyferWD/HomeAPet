@@ -7,7 +7,6 @@ import SectionC from "./SectionC";
 import SectionD from "./SectionD";
 import { form_data } from "@/app/interfaces";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import DOMPurify from "dompurify";
 
 const MultiStepForm = () => {
@@ -144,7 +143,7 @@ const MultiStepForm = () => {
       errors.A = { ...errors.A, name: "Name is required" };
     }
     if (!data.type.trim()) {
-      errors.A = { ...errors.A, type: "Type is required"};
+      errors.A = { ...errors.A, type: "Species is required"};
     }
     if (!data.breed.trim()) {
       errors.A = { ...errors.A, breed: "Breed is required" };
@@ -162,7 +161,7 @@ const MultiStepForm = () => {
     // Validate age input format (e.g., "2 years" or "2 years 10 months")
     const agePattern = /^(\d+)\s+years(\s+(\d+)\s+months)?$/;
     if (!agePattern.test(data.age)) {
-      errors.A = { ...errors.A, age: "Age format should be 'X years' or 'X years Y months'"};
+      errors.A = { ...errors.A, age: "Age should be 'X years' or 'X years Y months'"};
     }
 
     // Validate if image uploading field is empty
@@ -192,14 +191,21 @@ const MultiStepForm = () => {
 
     try {
       // Check if the user is logged in
-      const userData = await axios.post('/api/auth_token');
+      const userData = await fetch('api/auth_token', {
+        headers: {
+          'Content-Type' : "application/json"
+        },
+        method: "POST"
+      })
 
-      if (userData.data.userData) {
+      const userDataResults = await userData.json();
+
+      if (userDataResults.userData) {
         // Update the form data with the owner's email
 
         setFormData((prevFormData) => ({
           ...prevFormData,
-          owner: userData.data.userData.email,
+          owner: userDataResults.userData.email,
         }));
 
         // Upload the image 
@@ -216,15 +222,18 @@ const MultiStepForm = () => {
           }
 
           // Upload the image to image hosting (imgbb)'s API to obtain the URL
-          const petImgURL = await axios.post(
-            `https://api.imgbb.com/1/upload?key=${api_key}`,
-            imageData
-          );
+
+          const petImgURL = await fetch(`https://api.imgbb.com/1/upload?key=${api_key}`, {
+            method: "POST",
+            body: imageData
+          })
+
+          const petImgURLResults = await petImgURL.json();
 
           // Update the pet's image URL in form data
           setFormData((prevFormData) => ({
             ...prevFormData,
-            petImgUrl: petImgURL.data.data.url,
+            petImgUrl: petImgURLResults.data.url,
           }));
         }
       } else {
@@ -265,7 +274,14 @@ const MultiStepForm = () => {
   const uploadFormToDb =async () => {
     // Upload data to database
     try {
-      const res = await axios.put('api/uploadPet', formData);
+      // const res = await axios.put('api/uploadPet', formData);
+      const res = await fetch('api/uploadPet', {
+        headers: {
+          'Content-Type' : "application/json"
+        },
+        method: "PUT",
+        body: JSON.stringify(formData)
+      })
 
       // Set form submission to true to remove the form and display a success feedback for the user to view
       setFormSubmitted(true);
@@ -276,18 +292,18 @@ const MultiStepForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center flex-1 rounded-xl mx-auto bg-white shadow-lg scale-[60%] lg:scale-[70%]">
+    <div className="flex rounded-xl bg-white shadow-lg w-full md:w-3/4 lg:w-full xl:w-3/5">
       {formSubmitted ? (
-          <div className='flex justify-center items-center bg-white h-64 rounded-lg shadow-lg'> 
-            <p className=' font-poppins text-2xl font-semibold'> Form Submitted Successfully!</p>
+          <div className='flex justify-center items-center bg-white h-64 rounded-lg shadow-lg w-full'> 
+            <p className=' text-center font-poppins text-2xl font-semibold'> Form Submitted Successfully!</p>
           </div>
           ) : (
-          <form onSubmit={handleSubmit}>
-            <div className="flex justify-between">
+          <form onSubmit={handleSubmit} className="w-full">
+            <div className="grid grid-cols-2 grid-rows-2 w-full md:grid-rows-1 md:grid-cols-4 divide-x divide-y">
               {formSections.map((item) => (
                 <div
                   key={item.section}
-                  className={`basis-1/4 min-h-fit p-10 flex justify-center items-center text-center rounded-t-lg font-poppins font-semibold cursor-pointer ${
+                  className={`px-2 flex justify-center items-center text-center text-xs font-poppins font-semibold cursor-pointer border-b min-h-9 md:min-h-12 lg:min-h-16 lg:text-sm first:rounded-tl-lg [&:nth-child(2)]:rounded-tr-lg md:[&:nth-child(2)]:rounded-tr-none md:last:rounded-tr-lg ${
                     item.section === formSection ? "bg-sky-200" : "hover:bg-sky-100"
                   } ${
                     formErrors && formErrors[item.section] ? "bg-red-400" : ""

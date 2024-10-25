@@ -8,9 +8,10 @@ const AdoptionDashBoardCard = ({petURL, petName, petBreed} : adoptionApplication
         <Image 
             src= {petURL}
             alt="Pet Image"
-            width={200}
-            height={100}
-            className='object-cover overflow-hidden rounded-t-md max-h-36'
+            width={0}
+            height={0}
+            sizes='100vw'
+            className='object-cover overflow-hidden rounded-t-md w-full h-auto max-h-36 min-w-56 max-w-56'
         />
         <div className='bg-blue-50 rounded-b-md flex flex-col justify-center item-center py-4 gap-4'>
             <h3 className='flex justify-center capitalize font-poppins text-xl break-words max-w-[200px] text-center'>

@@ -20,9 +20,12 @@ const RehomingListingDashBoardCard = ( {petURL, applicants} : rehomingApplicants
             // You can fetch and render adopter details here from your data source
             return (
                 <div className='flex gap-3 flex-col mt-3 p-3 border-2 rounded-md border-green-300'>
-                    {applicants.map((applicant) => (
+                    {applicants.length > 0 ? applicants.map((applicant, index) => (
                         <>
-                            <div className='text-center'>
+                            <div 
+                                className='text-center' 
+                                key={index}
+                            >
                                 <p className='font-bold font-poppins'>
                                     Applicant: 
                                     <span className='font-normal'> 
@@ -43,7 +46,11 @@ const RehomingListingDashBoardCard = ( {petURL, applicants} : rehomingApplicants
                                 Accept & Schedule Interview
                             </button>
                         </>
-                    ))}
+                    )): (
+                        <p className='w-full text-center bg-green-500 text-white rounded-md py-2'>
+                            No applicants yet
+                        </p>
+                    )}
                     
                 </div>
             );  
@@ -58,9 +65,10 @@ const RehomingListingDashBoardCard = ( {petURL, applicants} : rehomingApplicants
             <Image 
                 src={petURL}
                 alt="Pet Image" 
-                width={200}
-                height={100}
-                className="object-cover overflow-hidden rounded-md max-h-36 "  
+                width={0}
+                height={0}
+                sizes='100vw'
+                className="object-cover overflow-hidden rounded-md w-full h-auto max-h-36 "  
             />
         </div>
         

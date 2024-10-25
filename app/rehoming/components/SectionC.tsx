@@ -1,13 +1,17 @@
 import { FormProps } from "@/app/interfaces";
 import { Header } from "@/components";
 import CheckBoxFieldForm from "./CheckBoxFieldForm";
+import PrevButtonForm from "./PrevButtonForm";
+import NextButtonForm from "./NextButtonForm";
+import FormSectionContainer from "./FormSectionContainer";
+import FormSectionHeader from "./FormSectionHeader";
 
 const SectionC = ({formData, handleFormInput, handleNext, handlePrevious} : FormProps) => {
   return (
-    <div className="flex flex-col min-h-fit">
-      <Header content="Pet Personality" />
+    <FormSectionContainer>
+      <FormSectionHeader content="Pet Personality" />
 
-      <div className="ml-12 text-2xl font-bold text-primary-blue">
+      <div className="font-bold text-sm text-primary-blue md:text-base lg:text-xl">
         <p>Select the relevant traits:</p>
       </div>
 
@@ -16,15 +20,11 @@ const SectionC = ({formData, handleFormInput, handleNext, handlePrevious} : Form
         onChange = {(e) => handleFormInput(e)}
       />
 
-      <div className="my-3 flex justify-between mx-12 mb-6">
-        <button onClick={handlePrevious} className="bg-primary-green h-16 w-40 rounded-md text-white hover:bg-green-700 text-2xl">
-            Previous
-        </button>
-        <button onClick={handleNext} className="bg-primary-blue h-16 w-40 rounded-md text-white hover:bg-blue-700 text-2xl">
-            Next
-        </button>
+      <div className="flex justify-between">
+        <PrevButtonForm handlePrev={handlePrevious} />
+        <NextButtonForm handleNext={handleNext} />
       </div>
-    </div>
+    </FormSectionContainer>
   )
 }
 

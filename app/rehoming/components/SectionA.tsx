@@ -1,26 +1,30 @@
 import { FormProps } from "@/app/interfaces";
-import { Header } from "@/components";
 import TextFieldForm from "./TextFieldForm";
-import Link from "next/link";
 import RadioFieldForm from "./RadioFieldForm";
+import FormSectionHeader from "./FormSectionHeader";
+import FormSectionContainer from "./FormSectionContainer";
+import NextButtonForm from "./NextButtonForm";
 
 const SectionA = ({ formData, handleFormInput, handleNext, formErrors }: FormProps) => {
   return (
-    <div className="flex flex-col min-h-fit">
+    <FormSectionContainer>
 
       {/* Display error message for fields with error */}
       {formErrors &&
         (formErrors.A) && (
-          <div>
+          <div className="flex flex-col gap-1">
             {Object.keys(formErrors.A).map((key: string) => (
-              <p key={key} className="bg-red-200 text-red-800 py-2 px-4 rounded text-xl text-center">
+              <p 
+                key={key} 
+                className="bg-red-200 text-red-800 py-1 px-2 rounded text-xs xl:text-xl text-center"
+              >
                 {(formErrors.A[key])}
               </p>
             ))}
           </div>
         )}
 
-      <Header content="Pet Information" />
+      <FormSectionHeader content="Pet Information" />
 
       <TextFieldForm
         fieldTitle="Pet Name: "
@@ -30,7 +34,7 @@ const SectionA = ({ formData, handleFormInput, handleNext, formErrors }: FormPro
       />
 
       <TextFieldForm
-        fieldTitle="Animal Species: "
+        fieldTitle="Species: "
         field_id = "type"
         value={formData.type}
         onChange={(e) => handleFormInput(e)}
@@ -64,15 +68,13 @@ const SectionA = ({ formData, handleFormInput, handleNext, formErrors }: FormPro
         field_id="age"
         value={formData.age}
         onChange={(e) => handleFormInput(e)}
-        fieldGuide="Age format should be 'X years' or 'X years Y months"
+        fieldGuide="Only 'X years' or 'X years Y months' accepted"
       />
 
-      <div className="my-3 flex justify-end mr-12 mb-6">
-        <button onClick={handleNext} className="bg-primary-blue h-16 w-40 rounded-md text-white hover:bg-blue-700 text-2xl">
-            Next
-        </button>
+      <div className="w-full flex justify-end">
+        <NextButtonForm handleNext={handleNext} />
       </div>
-    </div>
+    </FormSectionContainer>
   );
 };
 

@@ -2,11 +2,11 @@ import { FormRadioFieldProps } from '@/app/interfaces';
 
 const RadioFieldForm = ({fieldTitle,option_1,option_2,option_3, option_4, value, onChange, field_id} : FormRadioFieldProps) => {
   return (
-    <div className="px-10 py-4 flex justify-center items-center mb-4">
-        <span className='basis-1/3 mr-4 w-18 text-3xl text-center text-primary-blue'>
+    <div className="flex w-full gap-0 md:gap-2">
+        <span className='basis-1/3 md:basis-1/4 text-start text-primary-blue text-lg md:text-end'>
             {fieldTitle}
         </span>
-        <div className='basis-2/3 flex justify-between text-center '>
+        <div className='basis-2/3 md:basis-3/4 flex justify-start gap-4 text-center items-center'>
             <input
                 type="radio"
                 name={field_id}
@@ -16,7 +16,7 @@ const RadioFieldForm = ({fieldTitle,option_1,option_2,option_3, option_4, value,
                 onChange={onChange}
                 required
             />
-            <label htmlFor={option_1} className="mr-4 w-18 text-3xl text-center">
+            <label htmlFor={option_1} className=" text-center">
                 {option_1}
             </label>
             <input
@@ -28,7 +28,7 @@ const RadioFieldForm = ({fieldTitle,option_1,option_2,option_3, option_4, value,
                 onChange={onChange}
                 required
             />
-            <label htmlFor={option_2} className="mr-4 w-18 text-3xl text-center">
+            <label htmlFor={option_2} className=" text-center">
                 {option_2}
             </label>
             {option_3 != null ? (
@@ -41,7 +41,7 @@ const RadioFieldForm = ({fieldTitle,option_1,option_2,option_3, option_4, value,
                         onChange={(e) => onChange}
                         required
                     />
-                    <label htmlFor={option_3} className="mr-4 w-18 text-3xl text-center">
+                    <label htmlFor={option_3} className=" text-center">
                         {option_3}
                     </label>
                 </> 
@@ -56,7 +56,7 @@ const RadioFieldForm = ({fieldTitle,option_1,option_2,option_3, option_4, value,
                         onChange={(e) => onChange}
                         required
                     />
-                    <label htmlFor={option_4} className="mr-4 w-18 text-3xl text-center">
+                    <label htmlFor={option_4} className="text-center">
                         {option_4}
                     </label>
                 </> 

@@ -26,17 +26,17 @@ const NavBar = () => {
                     href="/"
                     className=''
                 >
-                    <h1 className='font-poppins font-extrabold text-3xl md:text-5xl hover:translate-y-[-5px]'>
+                    <h1 className='font-poppins font-extrabold text-2xl md:text-5xl hover:translate-y-[-5px]'>
                         HomeAPet
                     </h1>    
                 </Link>
 
                 {/* Login button & Dropdown Menu for smaller viewports */}
-                <div className='flex gap-2 lg:order-2 items-center'>
+                <div className='flex gap-0.5 lg:order-2 items-center'>
                     {/* <Link href="/login-register"> */}
                     <CustomButton 
                         content={isLoggedIn ? "Logout" : "Login / Register"}
-                        btnStyle={` w-full h-1/2 md:h-full text-md rounded-lg  
+                        btnStyle={` w-full md:h-full text-md rounded-lg  
                                 ${isLoggedIn ? "text-white bg-red-500 hover:bg-red-700" 
                                 : "text-black bg-white border-2 border-black hover:bg-black hover:text-white "}`}
                         handleClick={isLoggedIn ? logout : () => {router.push("/login-register")}}
