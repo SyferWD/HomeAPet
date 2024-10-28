@@ -4,9 +4,9 @@ import Adoption_PetInfo_Cell from "./components/Adoption_PetInfo_Cell"
 import CharacteristicsItem from "./components/CharacteristicsItem"
 import PetCarousel from "./components/PetCarousel"
 import Image from "next/image";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import AdoptionForm from "./components/AdoptionForm";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 interface Pet {
     pet_id: number;
@@ -56,35 +56,6 @@ const AdoptionPetInfoPage = () => {
           return properties;
         });
       };
-
-    // useEffect(() => {
-    //     if(petData){
-    //         setFilteredPetChar(
-    //             filterCharacteristics(petData?.characteristics)
-    //         )
-    //     }
-    //     const getPetData = async () => {
-    //       try {
-    //         const petDataResults = await fetch(`/api/petByID?pet_id=${petID}`, {
-    //             headers : {
-    //                 "Content-Type" : "application/json"
-    //             },
-    //             method: "GET"
-    //         })
-
-    //         const petDataRes = await petDataResults.json()
-
-    //         setPetData(petDataRes.data.requestedPet);
-    //       } catch (error) {
-    //         return
-    //       }
-    //     };
-    
-    //     if (petID) {
-    //       getPetData();
-    //     }
-
-    //   }, [petID, petData]);
 
     useEffect(() => {
         let isMounted = true;
@@ -136,9 +107,7 @@ const AdoptionPetInfoPage = () => {
                         className='object-contain overflow-hidden w-full h-auto max-h-[50vh]'
                     />
                 ) : (
-                    <p className="text-white text-lg">
-                        Loading...
-                    </p>
+                    <LoadingSpinner />
                 )}
             </div>
             <div className='basis-1/2 h-auto w-auto flex flex-col gap-6 justify-center items-center bg-green-50 rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none p-10 shadow-lg'>
