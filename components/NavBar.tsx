@@ -6,11 +6,12 @@ import { RxCross2 } from 'react-icons/rx';
 import { CustomButton } from '.';
 import { navbar_links } from '@/constants';
 import { useAuth } from '@/app/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const NavBar = () => {
 
     const router = useRouter();
+    const pathName = usePathname();
 
     // Using a useState as a boolean to toggle between the menu icon / cross icon for smaller viewports
     const [isOpen, setIsOpen] = useState(false);
@@ -62,14 +63,14 @@ const NavBar = () => {
 
                 {/* Navigational Links */}
                 <div className={`w-full lg:w-auto lg:order-1 lg:flex-grow ${isOpen ? "absolute left-0 top-full w-full flex flex-col bg-slate-200" : "hidden lg:block"}`}>
-                    <ul className='text-[26px] flex flex-col lg:flex-row justify-start lg:mt-0 lg:ml-12 lg:text-[20px] lg:bg-white rounded-b-lg'>
+                    <ul className='text-[26px] flex flex-col lg:flex-row justify-start lg:mt-0 lg:ml-12 lg:text-[20px] lg:bg-white rounded-b-lg '>
                     {navbar_links.map((link) => (
                         // Check if isLoggedIn is true or if the link.title is not "Dashboard"
                         (isLoggedIn || link.title !== "Dashboard") && (
-                            <li className='border-b border-slate-400 lg:border-0 text-center hover:translate-y-[-5px]' key={link.title}>
-                            <Link href={link.url} className={`mx-4 ${link.textColour}`}>
-                                {link.title}
-                            </Link>
+                            <li className={`border-b border-slate-400 lg:border-0 text-center hover:translate-y-[-5px]`} key={link.title}>
+                                <Link href={link.url} className={`mx-4 py-1 md:py-2 ${link.textColour} ${pathName === link.url ? `${link.btmBorderColor} border-b-2` : " "}`}>
+                                    {link.title}
+                                </Link>
                             </li>
                         )
                     ))}

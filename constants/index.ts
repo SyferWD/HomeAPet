@@ -5,22 +5,26 @@ export const navbar_links = [
     {
         url: '/adoption',
         title: 'Adoption',
-        textColour: 'text-primary-green'
+        textColour: 'text-primary-green',
+        btmBorderColor : 'border-primary-green'
     },
     {
         url: '/rehoming',
         title: 'Rehoming',
-        textColour: 'text-primary-blue'
+        textColour: 'text-primary-blue',
+        btmBorderColor : 'border-primary-blue'
     },
     {
         url: '/volunteer',
         title: 'Volunteer',
-        textColour: 'text-red-400'
+        textColour: 'text-red-400',
+        btmBorderColor : 'border-red-400'
     },
     {
         url: '/dashboard',
         title: 'Dashboard',
-        textColour: ''
+        textColour: '',
+        btmBorderColor : 'border-black'
     }
 ]
 
