@@ -42,4 +42,10 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [
+    'border-primary-green',
+    'border-primary-blue',
+    'border-red-400',
+    'border-black',
+  ],
 }
