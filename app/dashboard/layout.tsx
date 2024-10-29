@@ -2,7 +2,8 @@
 
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import Loading from "./loading";
 
 interface UserDataResponse {
     user: object | null;
@@ -35,15 +36,11 @@ export default function DashBoardLayout({
     return (
           <main>
             {authorized ? (
-                <>
+                <Suspense fallback={ <Loading />}>
                     {children}
-                </>
+                </Suspense>
             ): (
-                <div className=" min-w-full min-h-screen flex justify-center items-center">
-                    <p className=" bg-red-500 text-white text-xl font-bold p-10 rounded-xl shadow-md"> 
-                        Loading...
-                    </p>
-                </div>
+                <Loading />
             )}
           </main>
     )

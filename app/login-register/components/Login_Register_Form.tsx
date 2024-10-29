@@ -30,6 +30,7 @@ const Login_Register_Form = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const toggleTab = (tab: 'login' | 'register') => {
     setActiveTab(tab);
@@ -42,16 +43,19 @@ const Login_Register_Form = () => {
     // Prevent default form submission behaviour
     e.preventDefault();
 
+    setLoading(true);
+
     if (activeTab === 'login') {
       // Handles Login data
       try {
         const result = await axios.post('api/login', formData);
         login();
-
+        setLoading(false);
       } catch (error: any) {
         if (error.response && error.response.data && error.response.data.error) {
           setErrorMessage(error.response.data.error);
         } 
+        setLoading(false);
         return
       }
 
@@ -59,6 +63,7 @@ const Login_Register_Form = () => {
       // Password & confirm password checker
       if (formData.password != formData.confirmPassword) {
         setPasswordMatch(false);
+        setLoading(false);
         return;
       } else {
         setPasswordMatch(true);
@@ -67,12 +72,13 @@ const Login_Register_Form = () => {
       try {
         const result = await axios.put('api/register', formData);
         setRegisterSuccess(true);
-
+        setLoading(false);
       } catch (error: any) {
         if (error.response && error.response.data && error.response.data.error) {
           setErrorMessage(error.response.data.error);
         } 
-          return
+        setLoading(false);
+        return;
       }
     }
   };
@@ -191,8 +197,9 @@ const Login_Register_Form = () => {
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
+              disabled={loading}
             >
-              {activeTab === 'login' ? 'Log In' : 'Register'}
+              {loading ? 'Processing...' : activeTab === 'login' ? 'Log In' : 'Register'}
             </button>
           </div>
         </form>
