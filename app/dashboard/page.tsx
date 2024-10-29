@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Header } from "@/components"
 import DashboardContainer from "./components/DashboardContainer"
 import AdoptionDashBoardCard from "./components/AdoptionDashBoardCard"
@@ -8,12 +8,14 @@ import RehomingListingDashBoardCard from "./components/RehomingListingDashBoardC
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { adoptionApplicationType, rehomingApplicantsType } from './constants';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const DashBoardPage = () => {
 
     const [adoptionApplications, setAdoptionApplications] = useState<adoptionApplicationType[]>([]);
     const [rehomingApplicants, setRehomingApplicants] = useState<rehomingApplicantsType[]>([]);
     const [volunterStatus, setVolunteerStatus] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const { user_email } = useAuth();
 
     const getDashBoardData = async () => {
@@ -24,12 +26,22 @@ const DashBoardPage = () => {
             setVolunteerStatus(res.data.volunteerApplicationData);
         } catch (error) {
             return
+        } finally {
+            setLoading(false);  // Set loading to false after data is fetched
         }
     }
 
     useEffect(() => {
         getDashBoardData();
     }, [])
+
+    if(loading) {
+        return (
+            <div className='h-full items-center'>
+                <LoadingSpinner />
+            </div>
+        )
+    }
     
 
     return (
