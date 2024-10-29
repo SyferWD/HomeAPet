@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from "@/components"
 import DashboardContainer from "./components/DashboardContainer"
 import AdoptionDashBoardCard from "./components/AdoptionDashBoardCard"
@@ -20,10 +20,23 @@ const DashBoardPage = () => {
 
     const getDashBoardData = async () => {
         try {
-            const res = await axios.post('/api/dashboard', {user_email: user_email});
-            setAdoptionApplications(res.data.petAdoptionApplicationData);
-            setRehomingApplicants(res.data.rehomingApplicantsData);
-            setVolunteerStatus(res.data.volunteerApplicationData);
+            const res = await fetch('/api/dashboard', {
+                headers: {
+                    'Content-Type' : "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({user_email}),
+            })
+
+            if(!res.ok) {
+                throw new Error("Network error, please try again");
+            }
+
+            const data = await res.json();
+
+            setAdoptionApplications(data.petAdoptionApplicationData);
+            setRehomingApplicants(data.rehomingApplicantsData);
+            setVolunteerStatus(data.volunteerApplicationData);
         } catch (error) {
             return
         } finally {
