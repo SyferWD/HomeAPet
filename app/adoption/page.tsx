@@ -1,6 +1,7 @@
+export const revalidate = 30;
+
 import { prisma } from "@/lib/prisma";
 import AdoptionPage from "./components/AdoptionPage";
-
 
 const Page = async () => {
 
