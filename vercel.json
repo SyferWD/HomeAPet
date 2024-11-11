@@ -1,0 +1,8 @@
+{
+    "crons": [
+        {
+            "path" : "/api/petByID?pet_id=1",
+            "schedule" : "0 5 * * *"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { petDataProps } from '../constants';
 import SearchBar from './SearchBar';
 import { SearchCard } from '@/components';
@@ -16,9 +16,11 @@ const AdoptionPage = ( {initialPets, totalNumofPets}:adoptionProps ) => {
     const [initialRender, setInitialRender] = useState(true)
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(Math.ceil(totalNumofPets / 5));
-    const [galleryCards, setGalleryCards] = useState<petDataProps[]>(initialPets)
+    const [galleryCards, setGalleryCards] = useState<petDataProps[]>(initialPets);
+    const [loading, setLoading] = useState(false);
 
     const getGalleryCards = async(pageNumber : number) => {
+        setLoading(true);
         try {
             const fetchedData = await fetch(`api/pets?page=${pageNumber}`,{
                 headers : {
@@ -33,7 +35,9 @@ const AdoptionPage = ( {initialPets, totalNumofPets}:adoptionProps ) => {
             setTotalPages(Math.ceil(petsData.totalNumOfPets / 5));
 
         } catch (error) {
-            return
+            console.error("Failed to fetch data:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -43,6 +47,8 @@ const AdoptionPage = ( {initialPets, totalNumofPets}:adoptionProps ) => {
             setInitialRender(false);
         }
         setCurrentPage(nextPageNumber);
+        window.scroll(0, 0);
+
     };
 
     const handleSearch = async( searchTerm : string) => {
@@ -95,7 +101,11 @@ const AdoptionPage = ( {initialPets, totalNumofPets}:adoptionProps ) => {
                 </div>
                 {/* Search Result Cards */}
                 <div className='relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 z-10 justify-items-center content-center w-full'>
-                    {galleryCards.length > 0 ? galleryCards.map((pet) => (
+                    {loading ? (
+                        <div className='col-span-4'>
+                            <LoadingSpinner />
+                        </div>
+                    ) : galleryCards.length > 0 ? galleryCards.map((pet) => (
                         <Link 
                             key={pet.pet_id}
                             href={{
