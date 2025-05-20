@@ -16,7 +16,7 @@ const StripeBuyButton = () => {
 
   return (
     <stripe-buy-button
-      buy-button-id="buy_btn_1NnGi9APMRyY9MbLF6Xb4SB9"
+      buy-button-id="buy_btn_1RQluJAPMRyY9MbLj58MghV8"
       publishable-key="pk_test_51NnGdQAPMRyY9MbL17QHm1MUAuW7AKV9ljhApUHUXJLf3ltEDj5xWhpp8Fua2vHZHcwLH8MGlo2Zr4D5qWuxQwBa00hjmH9blw"
     />
   );
