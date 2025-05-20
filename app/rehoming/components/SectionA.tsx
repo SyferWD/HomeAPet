@@ -16,7 +16,7 @@ const SectionA = ({ formData, handleFormInput, handleNext, formErrors }: FormPro
             {Object.keys(formErrors.A).map((key: string) => (
               <p 
                 key={key} 
-                className="bg-red-200 text-red-800 py-1 px-2 rounded text-xs xl:text-xl text-center"
+                className="bg-red-200 text-red-800 py-1 px-2 rounded text-xs xl:text-lg text-center"
               >
                 {(formErrors.A[key])}
               </p>

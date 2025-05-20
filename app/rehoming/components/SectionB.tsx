@@ -10,7 +10,7 @@ const SectionB = ({formData, formErrors, imageProps, handleFormInput, handleNext
 
       {/* Display error message for the empty image field */}
       {formErrors && formErrors.B && (
-        <p className="bg-red-200 text-red-800 py-1 px-2 rounded text-xs xl:text-xl text-center">
+        <p className="bg-red-200 text-red-800 py-1 px-2 rounded text-xs xl:text-lg text-center">
           {formErrors.B.image}
         </p>
       )}

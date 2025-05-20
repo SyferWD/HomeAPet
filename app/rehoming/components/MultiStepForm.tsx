@@ -299,11 +299,11 @@ const MultiStepForm = () => {
           </div>
           ) : (
           <form onSubmit={handleSubmit} className="w-full">
-            <div className="grid grid-cols-2 grid-rows-2 w-full md:grid-rows-1 md:grid-cols-4 divide-x divide-y">
+            <div className="grid grid-cols-2 grid-rows-2 w-full md:grid-rows-1 md:grid-cols-4 divide-x divide-gray-200">
               {formSections.map((item) => (
                 <div
                   key={item.section}
-                  className={`px-2 flex justify-center items-center text-center text-xs font-poppins font-semibold cursor-pointer border-b min-h-9 md:min-h-12 lg:min-h-16 lg:text-sm first:rounded-tl-lg [&:nth-child(2)]:rounded-tr-lg md:[&:nth-child(2)]:rounded-tr-none md:last:rounded-tr-lg ${
+                  className={`px-2 flex justify-center items-center text-center text-xs font-poppins font-semibold cursor-pointer min-h-9 md:min-h-12 lg:min-h-16 lg:text-sm first:rounded-tl-lg [&:nth-child(2)]:rounded-tr-lg md:[&:nth-child(2)]:rounded-tr-none md:last:rounded-tr-lg ${
                     item.section === formSection ? "bg-sky-200" : "hover:bg-sky-100"
                   } ${
                     formErrors && formErrors[item.section] ? "bg-red-400" : ""

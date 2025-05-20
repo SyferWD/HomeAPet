@@ -1,5 +1,4 @@
 import { Footer, NavBar } from '@/components'
-import { poppins, roboto_flex } from './fonts'
 import './globals.css'
 import type { Metadata } from 'next'
 import { AuthProvider } from './contexts/AuthContext'
@@ -15,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${roboto_flex.variable}`}>
+    <html lang="en" className="font-sans">
        <AuthProvider>
         <body className='min-h-screen'> 
             <NavBar />

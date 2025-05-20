@@ -58,7 +58,7 @@ const DashBoardPage = () => {
     
 
     return (
-        <div className="min-w-screen mb-12">
+        <div className="w-screen mb-12">
             <Header content="Dashboard" />
             <div className="flex flex-col justify-center gap-10">
 

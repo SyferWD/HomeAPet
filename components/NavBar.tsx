@@ -37,7 +37,7 @@ const NavBar = () => {
                     {/* <Link href="/login-register"> */}
                     <CustomButton 
                         content={isLoggedIn ? "Logout" : "Login / Register"}
-                        btnStyle={` w-full md:h-full text-md rounded-lg  
+                        btnStyle={` w-full md:h-full text-md rounded-lg cursor-pointer  
                                 ${isLoggedIn ? "text-white bg-red-500 hover:bg-red-700" 
                                 : "text-black bg-white border-2 border-black hover:bg-black hover:text-white "}`}
                         handleClick={isLoggedIn ? logout : () => {router.push("/login-register")}}
@@ -48,7 +48,7 @@ const NavBar = () => {
                         <button 
                             type='button'
                             onClick={() => setIsOpen(!isOpen)}
-                            className='flex items-center rounded-2xl'
+                            className='flex items-center rounded-2xl cursor-pointer '
                         >
                             <HiMenu 
                                 className={`w-6 h-6 md:w-12 md:h-12 text-black ${isOpen ? "hidden" : "block"}`}
